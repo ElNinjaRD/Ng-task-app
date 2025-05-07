@@ -5,10 +5,11 @@ import { AuthService } from '../../data-access/auth.service';
 import { IFormSignUp } from '../../../models/IFormSignUp';
 import { IUser } from '../../../models/IUser';
 import { toast } from 'ngx-sonner';
+import { GoogleButtonComponent } from '../../UI/google-button/google-button.component';
 
 @Component({
   selector: 'app-sign-in',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, GoogleButtonComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css'
 })
@@ -61,5 +62,19 @@ export default class SignInComponent {
     }
 
   }
+
+  async submitWithGoogle(){
+    try{
+      await this._authServices.signInWithGoogle()
+
+      toast.success('Welcome to task page')
+
+      this._router.navigateByUrl('/task')
+    }catch(error){
+      toast.error("Error when starting with google")
+    }
+  }
+
+
 
 }

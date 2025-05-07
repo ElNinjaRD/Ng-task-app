@@ -1,2 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+body{
+  background-color: theme('colors.gray.900');
+}
+
+:root{
+  color-scheme: dark light;
+}

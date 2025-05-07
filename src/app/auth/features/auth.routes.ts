@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { privateGuard, publicGuard } from "../../core/auth.guard";
 
 export default [
   {
@@ -6,8 +7,8 @@ export default [
     loadComponent: () => import("./sign-in/sign-in.component")
   },
   {
-    path: "sign-up",
-    loadComponent: () => import("./sign-up/sign-up.component")
+    path: "task",
+    loadComponent: () => import("../../task/features/task.routes")
   },
 
 ] as Routes;
