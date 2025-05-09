@@ -1,6 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, input, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ITaskCreate } from '../../models/ITask';
+import { ITask, ITaskCreate } from '../../models/ITask';
 import { TaskService } from '../../data-access/task.service';
 import { toast } from 'ngx-sonner';
 import { RouterLink } from '@angular/router';
@@ -16,6 +16,9 @@ export default class TaskFormComponent {
   private _taskService = inject(TaskService)
 
   loading = signal(false);
+
+  idTask = input.required<string>();
+
 
   form = this._formBuilder.group({
     title: this._formBuilder.control('', Validators.required),
@@ -38,10 +41,15 @@ export default class TaskFormComponent {
         completed: !!completed
       };
 
-      await this._taskService.create(task);
+      //Si existe el idTask, significa que es una edicion
+      const id = this.idTask()
+      if(id){
+        await this._taskService.update(task, id)
+      }else {
+        await this._taskService.create(task);
+      }
 
-      toast.success('Task created correctly...')
-
+      toast.success(`Task ${id ? 'edited' : 'created'} correctly...`)
       this.form.reset()
 
     }catch(erro){
@@ -51,5 +59,29 @@ export default class TaskFormComponent {
     }
   }
 
+
+  //Edit task
+
+  constructor() {
+    effect(() => {
+      //console.log(this.idTask())
+
+      const id = this.idTask()
+      if(!id) return;
+
+      this.getTask(id);
+    })
+  }
+
+
+  async getTask(id: string){
+    const taskSnapshot = await this._taskService.getTask(id);
+
+    if(!taskSnapshot.exists()) return;
+
+    const task = taskSnapshot.data() as ITask;
+
+    this.form.patchValue(task)
+  }
 
 }

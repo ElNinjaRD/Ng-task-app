@@ -9,5 +9,5 @@ import { TaskService } from '../../data-access/task.service';
   templateUrl: './task-list.component.html'
 })
 export default class TaskListComponent {
-  task = inject(TaskService).getTasks;
+  TaskService = inject(TaskService);
 }
