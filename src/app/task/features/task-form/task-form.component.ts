@@ -8,7 +8,8 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-task-form',
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './task-form.component.html'
+  templateUrl: './task-form.component.html',
+  providers: [TaskService],
 })
 export default class TaskFormComponent {
 
@@ -28,7 +29,7 @@ export default class TaskFormComponent {
   async submit(){
     if(this.form.invalid) return;
 
-    console.log(this.form.value)
+    //console.log(this.form.value)
 
 
     try{

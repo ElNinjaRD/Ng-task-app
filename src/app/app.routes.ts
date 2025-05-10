@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { privateGuard, publicGuard } from './core/auth.guard';
 
 export const routes: Routes = [
+
   {
     canActivate: [publicGuard()],
     path:'auth',
@@ -12,5 +13,15 @@ export const routes: Routes = [
     path:'task',
     loadComponent: () => import('./shared/UI/layout/layout.component'),
     loadChildren: () => import('./task/features/task.routes')
-  }
+  },
+  {
+    canActivate: [privateGuard()],
+    path:'',
+    loadComponent: () => import('./shared/UI/layout/layout.component'),
+    loadChildren: () => import('./task/features/task.routes')
+  },
+  {
+    path: '**', redirectTo: '/auth/features/auth.routes/sign-up'
+  },
+
 ];

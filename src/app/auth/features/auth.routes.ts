@@ -3,12 +3,12 @@ import { privateGuard, publicGuard } from "../../core/auth.guard";
 
 export default [
   {
-    path: "sign-in",
-    loadComponent: () => import("./sign-in/sign-in.component")
+    path: 'sign-in',
+    loadComponent: () => import('./sign-in/sign-in.component'),
   },
   {
-    path: "task",
-    loadComponent: () => import("../../task/features/task.routes")
+    path: 'sign-up',
+    loadComponent: () => import('./sign-up/sign-up.component'),
   },
 
 ] as Routes;

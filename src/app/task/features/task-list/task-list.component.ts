@@ -6,7 +6,8 @@ import { TaskService } from '../../data-access/task.service';
 @Component({
   selector: 'app-task-list',
   imports: [TableComponent, RouterLink],
-  templateUrl: './task-list.component.html'
+  templateUrl: './task-list.component.html',
+  providers: [TaskService],
 })
 export default class TaskListComponent {
   TaskService = inject(TaskService);
